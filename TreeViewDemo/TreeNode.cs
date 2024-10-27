@@ -5,11 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EleCho.WpfSuite.Markup
-{
-    record struct EmptyStruct;
-}
-
 namespace TreeViewDemo
 {
     public interface ITreeNode
