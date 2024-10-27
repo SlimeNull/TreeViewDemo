@@ -24,14 +24,14 @@ namespace TreeViewDemo
         {
             DataContext = this;
 
-            var rootNode = new GroupGroupTreeNode()
+            var rootNode = new GroupTreeNode()
             {
                 Name = "Root"
             };
 
             for (int i = 0; i < 30; i++)
             {
-                var group = new EntityGroupTreeNode()
+                var group = new GroupTreeNode()
                 {
                     Name = $"Group {i + 1}"
                 };
@@ -52,33 +52,39 @@ namespace TreeViewDemo
             InitializeComponent();
         }
 
-        public ObservableCollection<GroupGroupTreeNode> RootTreeNodes { get; } = new();
+        public ObservableCollection<GroupTreeNode> RootTreeNodes { get; } = new();
 
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(AddChildCommand))]
+        [NotifyCanExecuteChangedFor(nameof(AddGroupChildCommand))]
+        [NotifyCanExecuteChangedFor(nameof(AddEntityChildCommand))]
         private ITreeNode? _selectedNode;
 
 
         public bool CanAddChild()
         {
-            return SelectedNode is GroupGroupTreeNode or EntityGroupTreeNode;
+            return SelectedNode is GroupTreeNode;
         }
 
         [RelayCommand(CanExecute = nameof(CanAddChild))]
-        public void AddChild()
+        public void AddGroupChild()
         {
-            if (SelectedNode is GroupGroupTreeNode groupGroupTreeNode)
+            if (SelectedNode is GroupTreeNode groupGroupTreeNode)
             {
-                groupGroupTreeNode.Children.Add(new EntityGroupTreeNode()
+                groupGroupTreeNode.Children.Add(new GroupTreeNode()
                 {
                     Name = System.IO.Path.GetRandomFileName()
                 });
             }
-            else if (SelectedNode is EntityGroupTreeNode entityGroupTreeNode)
+        }
+
+        [RelayCommand(CanExecute = nameof(CanAddChild))]
+        public void AddEntityChild()
+        {
+            if (SelectedNode is GroupTreeNode groupGroupTreeNode)
             {
-                entityGroupTreeNode.Children.Add(new EntityTreeNode()
+                groupGroupTreeNode.Children.Add(new EntityTreeNode()
                 {
-                    Name = System.IO.Path.GetRandomFileName(),
+                    Name = System.IO.Path.GetRandomFileName()
                 });
             }
         }

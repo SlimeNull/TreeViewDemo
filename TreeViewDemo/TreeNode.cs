@@ -12,20 +12,11 @@ namespace TreeViewDemo
         IEnumerable<ITreeNode> Children { get; }
     }
 
-    public class GroupGroupTreeNode : ITreeNode
+    public class GroupTreeNode : ITreeNode
     {
         public string Name { get; set; } = string.Empty;
 
-        public ObservableCollection<EntityGroupTreeNode> Children { get; } = new();
-
-        IEnumerable<ITreeNode> ITreeNode.Children => Children;
-    }
-
-    public class EntityGroupTreeNode : ITreeNode
-    {
-        public string Name { get; set; } = string.Empty;
-
-        public ObservableCollection<EntityTreeNode> Children { get; } = new();
+        public ObservableCollection<ITreeNode> Children { get; } = new();
 
         IEnumerable<ITreeNode> ITreeNode.Children => Children;
     }
