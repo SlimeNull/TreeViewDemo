@@ -5,25 +5,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
-namespace TreeViewDemo
+namespace TreeViewWithItemsControl
 {
     public interface ITreeNode
     {
         IEnumerable<ITreeNode> Children { get; }
     }
 
-    public class GroupTreeNode : ITreeNode
+    public class GroupGroupTreeNode : DependencyObject, ITreeNode
     {
         public string Name { get; set; } = string.Empty;
 
-        public ObservableCollection<ITreeNode> Children { get; } = new();
+        public ObservableCollection<EntityGroupTreeNode> Children { get; } = new();
 
         IEnumerable<ITreeNode> ITreeNode.Children => Children;
     }
 
-    public class EntityTreeNode : ITreeNode
+    public class EntityGroupTreeNode : DependencyObject, ITreeNode
+    {
+        public string Name { get; set; } = string.Empty;
+
+        public ObservableCollection<EntityTreeNode> Children { get; } = new();
+
+        IEnumerable<ITreeNode> ITreeNode.Children => Children;
+    }
+
+    public class EntityTreeNode : DependencyObject, ITreeNode
     {
         public string Name { get; set; } = string.Empty;
         public int BlockNumber { get; set; }
